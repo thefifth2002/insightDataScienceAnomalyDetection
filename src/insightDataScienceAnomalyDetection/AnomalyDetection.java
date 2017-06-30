@@ -23,7 +23,7 @@ public class AnomalyDetection {
   public void batchReader() {
     JSONParser parser = new JSONParser();
     try {
-      Object obj = parser.parse(new FileReader("log_input\test.json"));
+      Object obj = parser.parse(new FileReader("log_input/batch_log.json"));
       JSONObject jsonObject = (JSONObject) obj;
       System.out.println(jsonObject);
     } catch (IOException | ParseException e) {
