@@ -1,7 +1,11 @@
 package insightDataScienceAnomalyDetection;
 
 import java.util.Date;
-
+/**
+ *
+ * @author Hao
+ *
+ */
 public class Event {
   private String type;
   private Date timeStamp;
@@ -9,13 +13,16 @@ public class Event {
   private String id1;
   private String id2;
   private double amount;
+  private int position;
   public Event() {
   }
-  public Event(String typeVal, Date timeStampVal, String idVal, double amountVal) {
+  public Event(String typeVal, Date timeStampVal, String idVal,
+      double amountVal, int cnt) {
     type = typeVal;
     timeStamp = timeStampVal;
     id = idVal;
     amount = amountVal;
+    position = cnt;
   }
   public Event(String typeVal, Date timeStampVal, String id1Val, String id2Val) {
     type = typeVal;
@@ -95,7 +102,18 @@ public class Event {
   public void setAmount(double amount) {
     this.amount = amount;
   }
-
+  /**
+   * @return the position
+   */
+  public int getPosition() {
+    return position;
+  }
+  /**
+   * @param position the position to set
+   */
+  public void setPosition(int position) {
+    this.position = position;
+  }
   /* (non-Javadoc)
    * @see java.lang.Object#hashCode()
    */
@@ -109,6 +127,7 @@ public class Event {
     result = prime * result + (id == null ? 0 : id.hashCode());
     result = prime * result + (id1 == null ? 0 : id1.hashCode());
     result = prime * result + (id2 == null ? 0 : id2.hashCode());
+    result = prime * result + position;
     result = prime * result + (timeStamp == null ? 0 : timeStamp.hashCode());
     result = prime * result + (type == null ? 0 : type.hashCode());
     return result;
@@ -152,6 +171,9 @@ public class Event {
     } else if (!id2.equals(other.id2)) {
       return false;
     }
+    if (position != other.position) {
+      return false;
+    }
     if (timeStamp == null) {
       if (other.timeStamp != null) {
         return false;
@@ -174,6 +196,7 @@ public class Event {
   @Override
   public String toString() {
     return "Event [type=" + type + ", timeStamp=" + timeStamp + ", id=" + id + ", id1=" + id1
-        + ", id2=" + id2 + ", amount=" + amount + "]";
+        + ", id2=" + id2 + ", amount=" + amount + ", position=" + position + "]";
   }
+
 }

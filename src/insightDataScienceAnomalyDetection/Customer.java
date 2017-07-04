@@ -5,16 +5,29 @@ import java.util.Set;
 
 public class Customer {
   private String id;
-  private Set<String> friends;
-  private Set<Event> selfpurchases;
-  private Set<Event> socialpurchaes;
+  private Set<Customer> friends;
+  private Set<Event> purchases;
   public Customer() {
   }
   public Customer(String idVal) {
     id = idVal;
     friends = new HashSet<>();
-    selfpurchases = new HashSet<>();
-    socialpurchaes = new HashSet<>();
+    purchases = new HashSet<>();
+  }
+  public void addPurchase(Event e) {
+    if (!purchases.contains(e)) {
+      purchases.add(e);
+    }
+  }
+  public void addFriend(Customer c) {
+    if (!friends.contains(c)) {
+      friends.add(c);
+    }
+  }
+  public void removeFriend(Customer c) {
+    if (friends.contains(c)) {
+      friends.remove(c);
+    }
   }
   /**
    * @return the id
@@ -31,38 +44,26 @@ public class Customer {
   /**
    * @return the friends
    */
-  public Set<String> getFriends() {
+  public Set<Customer> getFriends() {
     return friends;
   }
   /**
    * @param friends the friends to set
    */
-  public void setFriends(Set<String> friends) {
+  public void setFriends(Set<Customer> friends) {
     this.friends = friends;
   }
   /**
-   * @return the selfpurchases
+   * @return the purchases
    */
-  public Set<Event> getSelfpurchases() {
-    return selfpurchases;
+  public Set<Event> getPurchases() {
+    return purchases;
   }
   /**
-   * @param selfpurchases the selfpurchases to set
+   * @param purchases the purchases to set
    */
-  public void setSelfpurchases(Set<Event> selfpurchases) {
-    this.selfpurchases = selfpurchases;
-  }
-  /**
-   * @return the socialpurchaes
-   */
-  public Set<Event> getSocialpurchaes() {
-    return socialpurchaes;
-  }
-  /**
-   * @param socialpurchaes the socialpurchaes to set
-   */
-  public void setSocialpurchaes(Set<Event> socialpurchaes) {
-    this.socialpurchaes = socialpurchaes;
+  public void setPurchases(Set<Event> purchases) {
+    this.purchases = purchases;
   }
   /* (non-Javadoc)
    * @see java.lang.Object#hashCode()
@@ -103,8 +104,7 @@ public class Customer {
    */
   @Override
   public String toString() {
-    return "Customer [id=" + id + ", friends=" + friends + ", selfpurchases=" + selfpurchases
-        + ", socialpurchaes=" + socialpurchaes + "]";
+    return "Customer [id=" + id + ", friends=" + friends + ", purchases=" + purchases + "]";
   }
 
 }
