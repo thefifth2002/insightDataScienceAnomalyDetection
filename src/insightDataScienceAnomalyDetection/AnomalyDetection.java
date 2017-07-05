@@ -93,6 +93,7 @@ public class AnomalyDetection {
         if (props[0].equals("purchase") && customers.containsKey(props[2])) {
           detector(props);
         }
+        
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -212,7 +213,8 @@ public class AnomalyDetection {
       return;
     }
     List<Double> purchaseVals = new ArrayList<>();
-    for (int i = 0; i < Math.min(T, socialPurchases.size()); i++) {
+    int min = Math.min(getT(), socialPurchases.size());
+    for (int i = 0; i < min; i++) {
       Event purchase = socialPurchases.poll();
       purchaseVals.add(Double.valueOf(purchase.getAmount()));
     }
