@@ -1,117 +1,181 @@
 package insightDataScienceAnomalyDetection;
 
-import java.util.Date;
 /**
  * Event class
- * Create single event from input file.
- * Event proprities: type, timeStamp, id, id1, id2, amount and position
+ * Create single purchase event object.
+ * Event properties: type, timeStamp, id, amount and position
  * @author Hao
- *
  */
-public class Event {
+public class Event implements Comparable<Event> {
   private String type;
-  private Date timeStamp;
+  private String timeStamp;
   private String id;
-  private String id1;
-  private String id2;
-  private double amount;
+  private String amount;
   private int position;
-  public Event() {
-  }
-  public Event(String typeVal, Date timeStampVal, String idVal,
-      double amountVal, int cnt) {
-    type = typeVal;
-    timeStamp = timeStampVal;
-    id = idVal;
-    amount = amountVal;
-    position = cnt;
-  }
-  public Event(String typeVal, Date timeStampVal, String id1Val, String id2Val) {
-    type = typeVal;
-    timeStamp = timeStampVal;
-    id1 = id1Val;
-    id2 = id2Val;
+  /**
+   * Internal builder pattern class
+   * initialize Event objects' fields  in chain pattern
+   * @author Hao
+   *
+   */
+  public static class EventBuilder {
+    private String type = "";
+    private String timeStamp = "";
+    private String id = "";
+    private String amount = "";
+    private int position = -1;
+    /**
+     * Event type builder, take String as input. if String is null
+     * throw IllegalArgumentException("type can not be null")
+     * @param typeVal String
+     * @return builder with type passed in
+     */
+    public EventBuilder type (String typeVal) {
+      if (typeVal == null) {
+        throw new IllegalArgumentException("type can not be null");
+      }
+      type = typeVal;
+      return this;
+    }
+    /**
+     * Event timeStamp builder, take String as input. if String is null
+     * IllegalArgumentException("timestamp can not be null")
+     * @param timeVal String
+     * @return builder with timeStamp passed in
+     */
+    public EventBuilder timeStamp (String timeVal) {
+      if (timeVal == null) {
+        throw new IllegalArgumentException("timestamp can not be null");
+      }
+      timeStamp = timeVal;
+      return this;
+    }
+    /**
+     * Event id builder, take String as input. if String is null
+     * throw IllegalArgumentException("id can not be null")
+     * @param idVal String
+     * @return builder with id passed in
+     */
+    public EventBuilder id (String idVal) {
+      if (idVal == null) {
+        throw new IllegalArgumentException("id can not be null");
+      }
+      id = idVal;
+      return this;
+    }
+    /**
+     * Event amount builder, take String as input. if String is null
+     * throw IllegalArgumentException("amount can not be null")
+     * @param  amountVal String
+     * @return builder with amount passed in
+     */
+    public EventBuilder amount (String amountVal) {
+      if (amountVal == null) {
+        throw new IllegalArgumentException("amount can not be null");
+      }
+      amount = amountVal;
+      return this;
+    }
+    /**
+     * Event position builder, take int as input. if position < 0
+     * throw new IllegalArgumentException("line count can not be negative")
+     * @param posVal int
+     * @return builder with line count passed in
+     */
+    public EventBuilder position (int posVal) {
+      if (posVal < 0) {
+        throw new IllegalArgumentException("line count can not be negative");
+      }
+      position = posVal;
+      return this;
+    }
+    /**
+     * build one event.
+     * User should use builder to create new instance of Event class.
+     * ie Event event = new Event.EventBuilder().type(type).timeStamp(timeStamp)
+     * .id(id).amount(amount).position(cnt).build(); every builder is optional
+     * @return one Event class object.
+     */
+    public Event build() {
+      return new Event(this);
+    }
   }
   /**
-   * @return the type
+   * private EventBuilder class constructor
+   * @param eventBuilder
+   */
+  private Event(EventBuilder eventBuilder) {
+    type = eventBuilder.type;
+    timeStamp = eventBuilder.timeStamp;
+    id = eventBuilder.id;
+    amount = eventBuilder.amount;
+    position = eventBuilder.position;
+  }
+  /** type getter
+   * @return String the type
    */
   public String getType() {
     return type;
   }
   /**
-   * @param type the type to set
+   * Set event't type
+   * @param String type,  the type to set, can't be null
    */
   public void setType(String type) {
     this.type = type;
   }
   /**
-   * @return the timeStamp
+   * timeStamp getter
+   * @return String the timeStamp
    */
-  public Date getTimeStamp() {
+  public String getTimeStamp() {
     return timeStamp;
   }
   /**
-   * @param timeStamp the timeStamp to set
+   * set event's timeStamp, take String as parameter, can't be null
+   * @param String timeStamp the timeStamp to set
    */
-  public void setTimeStamp(Date timeStamp) {
+  public void setTimeStamp(String timeStamp) {
     this.timeStamp = timeStamp;
   }
   /**
-   * @return the id
+   * id getter
+   * @return String the id
    */
   public String getId() {
     return id;
   }
   /**
-   * @param id the id to set
+   * set event's id, take String as parameter, can't be null
+   * @param String id the id to set
    */
   public void setId(String id) {
     this.id = id;
   }
   /**
-   * @return the id1
+   * amount getter
+   * @return String the amount
    */
-  public String getId1() {
-    return id1;
-  }
-  /**
-   * @param id1 the id1 to set
-   */
-  public void setId1(String id1) {
-    this.id1 = id1;
-  }
-  /**
-   * @return the id2
-   */
-  public String getId2() {
-    return id2;
-  }
-  /**
-   * @param id2 the id2 to set
-   */
-  public void setId2(String id2) {
-    this.id2 = id2;
-  }
-  /**
-   * @return the amount
-   */
-  public double getAmount() {
+  public String getAmount() {
     return amount;
   }
   /**
-   * @param amount the amount to set
+   * amount setter
+   * @param String amount the amount to set
    */
-  public void setAmount(double amount) {
+  public void setAmount(String amount) {
     this.amount = amount;
   }
   /**
-   * @return the position
+   * position getter
+   * @return int the position
    */
   public int getPosition() {
     return position;
   }
   /**
-   * @param position the position to set
+   * set event's position in source file
+   * @param int position the position to set
    */
   public void setPosition(int position) {
     this.position = position;
@@ -123,12 +187,8 @@ public class Event {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    long temp;
-    temp = Double.doubleToLongBits(amount);
-    result = prime * result + (int) (temp ^ temp >>> 32);
+    result = prime * result + (amount == null ? 0 : amount.hashCode());
     result = prime * result + (id == null ? 0 : id.hashCode());
-    result = prime * result + (id1 == null ? 0 : id1.hashCode());
-    result = prime * result + (id2 == null ? 0 : id2.hashCode());
     result = prime * result + position;
     result = prime * result + (timeStamp == null ? 0 : timeStamp.hashCode());
     result = prime * result + (type == null ? 0 : type.hashCode());
@@ -149,7 +209,11 @@ public class Event {
       return false;
     }
     Event other = (Event) obj;
-    if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount)) {
+    if (amount == null) {
+      if (other.amount != null) {
+        return false;
+      }
+    } else if (!amount.equals(other.amount)) {
       return false;
     }
     if (id == null) {
@@ -157,20 +221,6 @@ public class Event {
         return false;
       }
     } else if (!id.equals(other.id)) {
-      return false;
-    }
-    if (id1 == null) {
-      if (other.id1 != null) {
-        return false;
-      }
-    } else if (!id1.equals(other.id1)) {
-      return false;
-    }
-    if (id2 == null) {
-      if (other.id2 != null) {
-        return false;
-      }
-    } else if (!id2.equals(other.id2)) {
       return false;
     }
     if (position != other.position) {
@@ -197,8 +247,12 @@ public class Event {
    */
   @Override
   public String toString() {
-    return "Event [type=" + type + ", timeStamp=" + timeStamp + ", id=" + id + ", id1=" + id1
-        + ", id2=" + id2 + ", amount=" + amount + ", position=" + position + "]";
+    return "Event [type=" + type + ", timeStamp=" + timeStamp + ", id=" + id + ", amount=" + amount
+        + ", position=" + position + "]";
+  }
+  @Override
+  public int compareTo(Event o) {
+    return 0;
   }
 
 }
