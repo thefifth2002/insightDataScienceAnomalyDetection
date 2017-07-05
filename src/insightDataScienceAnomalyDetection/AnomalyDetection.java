@@ -92,6 +92,7 @@ public class AnomalyDetection {
             break;
           case "event_type" :
             res[0] = s;
+            break;
           case "timestamp" :
             res[1] = s;
             break;

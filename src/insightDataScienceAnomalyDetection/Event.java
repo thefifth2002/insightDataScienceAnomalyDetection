@@ -2,7 +2,9 @@ package insightDataScienceAnomalyDetection;
 
 import java.util.Date;
 /**
- *
+ * Event class
+ * Create single event from input file.
+ * Event proprities: type, timeStamp, id, id1, id2, amount and position
  * @author Hao
  *
  */
