@@ -247,7 +247,7 @@ public class AnomalyDetection {
   }
   /**
    * locate all the Dth friends of current customer's direct friends list
-   * @param friends list of current customer's direct friends
+   * @param friends£¬ list of current customer's direct friends
    * @return all the Dth friends and direct friends.
    */
   private Set<Customer> findFriends(Set<Customer> friends) {
